@@ -5,10 +5,10 @@
 **Objetivo:** Desarrollar habilidades que permita el desplegar una aplicación web teniendo en cuenta una arquitectura cliente/servidor así como de “N” capas (layer) (presentación/lógica de negocio/persistencia de datos) distribuida en diferentes máquinas.  
 
 **Duración:** 45 mins.
+
 ##### Table of Contents  
-[Headers](#headers)  
+[1. Introducción](#1.Introducción)  
 [Emphasis](#emphasis)  
-...snip...    
-<a name="headers"/>
-## Headers
+ 
+
 ## 1.Introducción
