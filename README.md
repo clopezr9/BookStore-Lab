@@ -16,13 +16,13 @@ Para el desarrollo de este laboratorio se requiere una cuenta en AWS que le perm
 
 ## 3. Descripción de la Aplicación Web
 El proyecto a desplegar en este laboratorio es una aplicación web. La aplicación permite visualizar una colección de recursos, para efectos de este caso, libros. Igualmente, cuando el usuario selecciona alguno de los recursos, se ofrece una vista con información detallada sobre el recurso seleccionado. La información de los recursos (libros) se encuentra almacenada en base de datos. La aplicación tiene tres (vistas): raíz (“/”, home), descripción  detallada de los recursos libros y acerca de. 
-![Figura 1](https://github.com/clopezr9/BookStore-Lab/blob/main/Imagenes-Bookstore/Figura1.png) <br />
+![Figura 1](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/Figura1.png) <br />
 *Figura 1. Vista del home de la aplicación.* <br />
 
-![Figura 2](https://github.com/clopezr9/BookStore-Lab/blob/main/Imagenes-Bookstore/Figura2.png) <br />
+![Figura 2](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/Figura2.png) <br />
 *Figura 2. Vista detallada para un objeto libro.* <br />
 
-![Figura 3](https://github.com/clopezr9/BookStore-Lab/blob/main/Imagenes-Bookstore/Figura3.png) <br />
+![Figura 3](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/Figura3.png) <br />
 *Figura 3. Vista detallada Acerca de.* <br />
 
 ### 3.1 Arquitectura de la aplicación
@@ -42,3 +42,25 @@ El módulo “server.js” inicializa el proceso servidor en el puerto 5000, est
 
 ## 4. Estructura del proyecto
 El proyecto se encuentra estructurado en dos grandes carpetas: frontend y backend. En la imagen se puede encontrar la estructura así como los diferentes folders que componen el proyecto.
+![Directorios](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/Directorios.png) <br />
+*Figura . Estructura de directorios.*
+
+
+## 5. Configuración de base de datos: MongoDB
+
+Tutorial [https://docs.mongodb.com/manual/tutorial/install-mongodb-on-amazon/]
+
+Code block
+$ sudo nano /etc/yum.repos.d/mongodb-org-5.0.repo
+[mongodb-org-5.0]
+name=MongoDB Repository
+baseurl=https://repo.mongodb.org/yum/amazon/2/mongodb-org/5.0/x86_64/
+gpgcheck=1
+enabled=1
+gpgkey=https://www.mongodb.org/static/pgp/server-5.0.asc
+
+$ sudo systemctl start mongod
+$ sudo systemctl status mongod
+$ mongosh
+$ use bookstore
+$ db.user.insert({name: "...", author: "..."})
