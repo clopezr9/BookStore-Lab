@@ -16,6 +16,7 @@ Para el desarrollo de este laboratorio se requiere una cuenta en AWS que le perm
 
 ## 3. Descripción de la Aplicación Web
 El proyecto a desplegar en este laboratorio es una aplicación web. La aplicación permite visualizar una colección de recursos, para efectos de este caso, libros. Igualmente, cuando el usuario selecciona alguno de los recursos, se ofrece una vista con información detallada sobre el recurso seleccionado. La información de los recursos (libros) se encuentra almacenada en base de datos. La aplicación tiene tres (vistas): raíz (“/”, home), descripción  detallada de los recursos libros y acerca de. 
+
 ![Figura 1](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/Figura1.png) <br />
 *Figura 1. Vista del home de la aplicación.* <br />
 
