@@ -1,8 +1,8 @@
 # BookStore-Laboratorio
 
-**Curso:** ST0255 Telemática. 
-**Título:** Desplegando una Web App considerando Front y Back end. 
-**Objetivo:** Desarrollar habilidades que permita el desplegar una aplicación web teniendo en cuenta una arquitectura cliente/servidor así como de “N” capas (layer) (presentación/lógica de negocio/persistencia de datos) distribuida en diferentes máquinas.  
+**Curso:** ST0255 Telemática. <br />
+**Título:** Desplegando una Web App considerando Front y Back end. <br />
+**Objetivo:** Desarrollar habilidades que permita el desplegar una aplicación web teniendo en cuenta una arquitectura cliente/servidor así como de “N” capas (layer) (presentación/lógica de negocio/persistencia de datos) distribuida en diferentes máquinas.  <br />
 
 **Duración:** 45 mins.
 
@@ -29,3 +29,16 @@ El proyecto a desplegar en este laboratorio es una aplicación web. La aplicaci�
 Es una aplicación web la cual emplea un estilo arquitectónico de división en capas. Para efectos de este proyecto se definió una arquitectura de dos (3) capas. Capa de presentación, lógica de negocio y persistencia de datos. Este es un estilo arquitectónico que permite que cada capa se ejecute sobre su propia infraestructura. De igual forma, es posible que un equipo de desarrollo se concentre en cada capa. 
 
 A continuación se ofrece una descripción de la aplicación para cada una de las capas   
+•	**Descripción de capa de presentación (Front End):** Esta capa se encarga de todos los aspectos relacionados con la interfaz de usuario. A esta capa se accede a través del browser. Igualmente, se encarga de la comunicación con el back end, en este caso, utilizando una API REST. Particularmente en este laboratorio, la capa de presentación o front end se encuentra desarrollado utilizando React. Ésta se define como una librería de java script para desarrollar la capa de presentación. En este sentido, la principal función de react es renderizar código html en el browser.  Para efectos del manejo de estilos (CSS), se empleo react-boostrap 
+
+•	**Descripción del Back End:** En este estilo arquitectónico, esta es la capa de la mitad en la cual se ejecuta y lleva a cabo la lógica de negocio. El back end se encuentra desarrollado empleando tecnología de scripting del lado del servidor, para este caso node.js. Igualmente utilizamos un framework de desarrollo de aplicaciones web denominado express así como mongoose para la conexión con la bases de datos.
+
+•	**Descripción de la persistencia de datos:** En esta capa es donde la información es gestionada y almacenada. En este laboratorio, los datos se almacenan en un motor de bases de datos orientado a documentos, para efectos de esta aplicación Mongo DB. Particularmente, estaremos utilizando Mongo DB, el cual es un servicio de bases de datos tipo NO SQL de forma local. 
+
+En el siguiente diagrama se puede observar el flujo principal que se requieren implementar para el manejo de las peticiones http. 
+
+El módulo “server.js” inicializa el proceso servidor en el puerto 5000, establece la conexión con la base de datos y, una vez recibe las peticiones http, selecciona y usa el módulo de ruta (bookRoute.js) adecuado para el procesamiento de la petición http entrante. Aquí, se envía la información al controlador apropiado (“bookControler”) para que este obtenga los datos que se solicitan desde el front end a través del model (“bookModels.js”). En este caso lo que se envía de respuesta es un Java Script Object Notation (JSON) hacia el front end. El modelo se encarga de obtener los datos solicitados de la base de datos.
+
+
+## 4. Estructura del proyecto
+El proyecto se encuentra estructurado en dos grandes carpetas: frontend y backend. En la imagen se puede encontrar la estructura así como los diferentes folders que componen el proyecto.
