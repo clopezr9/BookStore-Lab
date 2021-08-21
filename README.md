@@ -6,9 +6,5 @@
 
 **Duración:** 45 mins.
 
-##### Table of Contents  
-[1. Introducción](#1.Introducción)  
-[Emphasis](#emphasis)  
- 
-<a name="1.Intruducción"/>
+__TOC__
 ## 1.Introducción
