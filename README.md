@@ -27,4 +27,5 @@ El proyecto a desplegar en este laboratorio es una aplicación web. La aplicaci�
 
 ### 3.1 Arquitectura de la aplicación
 Es una aplicación web la cual emplea un estilo arquitectónico de división en capas. Para efectos de este proyecto se definió una arquitectura de dos (3) capas. Capa de presentación, lógica de negocio y persistencia de datos. Este es un estilo arquitectónico que permite que cada capa se ejecute sobre su propia infraestructura. De igual forma, es posible que un equipo de desarrollo se concentre en cada capa. 
+
 A continuación se ofrece una descripción de la aplicación para cada una de las capas   
