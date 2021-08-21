@@ -20,16 +20,16 @@ El proyecto a desplegar en este laboratorio es una aplicación web. La aplicaci�
   <img src="https://github.com/clopezr9/BookStore-Lab/blob/main/Imagenes-Bookstore/Figura1.png" alt="Figura 1. Vista del home de la aplicación.">
   <figcaption><i> Figura 1. Vista del home de la aplicación. </i></figcaption>
 </figure>
-<br>
+</br>
 <figure class="image">
   <img class="center" src="https://github.com/clopezr9/BookStore-Lab/blob/main/Imagenes-Bookstore/Figura2.png" alt="Figura 2. Vista detallada para un objeto libro.">
   <figcaption class="center"><i> Figura 2. Vista detallada para un objeto libro. </i></figcaption>
 </figure>
-<br>
+</br>
 <figure class="image">
   <img class="center" src="https://github.com/clopezr9/BookStore-Lab/blob/main/Imagenes-Bookstore/Figura3.png" alt="Figura 3. Vista detallada Acerca de.">
   <figcaption class="center"><i> Figura 3. Vista detallada Acerca de. </i></figcaption>
 </figure>
-<br>
+</br>
 
 ## 
