@@ -101,11 +101,11 @@ Ahora asocie la IP elástica a la máquina que desee (bien sea front end y back 
 
 ### 5.5. Despliegue de Front-End.
 Para cada una de las instancias que se desplegaron, actualicemos las aplicaciones que tenemos instaladas en la máquina:
-<pre><code>$ sudo yum update </code></pre>
+<pre><code> $ sudo yum update </code></pre>
 
 ### 5.6. Instalar el servidor web Nginx en el Front End.
 Para efectos de este laboratorio, vamos a utilizar un servidor web como Nginx, con el fin de soporta el despliegue de nuestro front end. Por favor, digite el siguiente comando para proceder a instalar el servidor Nginx.
-<pre><code>$ sudo amazon-linux-extras install nginx1.12 </code></pre>
+<pre><code> $ sudo amazon-linux-extras install nginx1.12 </code></pre>
 
 Una vez esta instalado vamos a proceder a configurar el servidor. Para esto debemos modificar el archivo de configuración de nginx ubicado en /etc/nginx
 <pre><code> $ sudo nano /etc/nginx/nginx.conf </code></pre>
@@ -121,7 +121,7 @@ Descargue y descomprima el código de la aplicación en su estación de trabajo 
 
 Proceda a  instalar node.js en la máquina de la siguiente forma:
 <pre><code> $ sudo yum install -y gcc-c++ make 
-$ curl -sL https://rpm.nodesource.com/setup_14.x | sudo -E bash -
+ $ curl -sL https://rpm.nodesource.com/setup_14.x | sudo -E bash -
 </code></pre>
 
 Ahora si instalemos la versión de node.js:
@@ -129,7 +129,7 @@ Ahora si instalemos la versión de node.js:
 
 Verifiquemos la versión:
 <pre><code> $ node -v
-$ npm -v 
+ $ npm -v 
 </code></pre>
 
 Ahora se requiere que instale las dependencias, para esto ubicado en el directorio front end ejecute el comando:
@@ -188,13 +188,13 @@ Para instalar la última versión estable de MongoDB, ejecute el siguiente coman
 <pre><code>$ sudo yum install -y mongodb-org</code></pre>
 
 Puede iniciar el proceso mongod emitiendo el siguiente comando:
-<pre><code>$ sudo systemctl start mongod</code></pre>
+<pre><code> $ sudo systemctl start mongod</code></pre>
 
 Puede verificar que el proceso de mongod se haya iniciado correctamente emitiendo el siguiente comando:
-<pre><code>$ sudo systemctl status mongod</code></pre>
+<pre><code> $ sudo systemctl status mongod</code></pre>
 
 Inicie una sesión de mongosh en la misma máquina host que mongod. Puede ejecutar mongosh sin ninguna opción de línea de comandos para conectarse a un mongod que se está ejecutando en su localhost con el puerto predeterminado 27017.
-<pre><code>$ mongosh</code></pre>
+<pre><code> $ mongosh</code></pre>
 
 Ahora debe crear la base de datos con el siguiente comando:
 <pre><code> > use [database_name] </code></pre>
@@ -204,7 +204,16 @@ Y para insertar datos a la base de datos se usa el siguiente comando:
 
 La información que debe quedar en su base de datos debe ser esta:
 ![DATA1](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/DATA1.PNG) <br />
-![DATA2](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/DATA2.PNG) <br />
-
+![DATA2](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/DATA2.PNG) <br /
 
 Tutorial de instalación de MongoDB tomado de: [https://docs.mongodb.com/manual/tutorial/install-mongodb-on-amazon/]
+
+
+### 5.8.	Desplegando el back end.
+Antes que todo debemos instalar la versión de node. Para esto configuremos el repositorio.
+<pre><code> $ sudo yum install -y gcc-c++ make 
+ $ curl -sL https://rpm.nodesource.com/setup_14.x | sudo -E bash -
+</code></pre>
+
+
+
