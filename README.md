@@ -52,10 +52,10 @@ El proyecto se encuentra estructurado en dos grandes carpetas: frontend y backen
 ![Directorios](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/Directorios.png) <br />
 *Figura 6. Estructura de directorios.*
 
-## 6. Despliegue de la aplicación
+## 5. Despliegue de la aplicación
 A continuación se presenta el conjunto de pasos para poder desplegar la aplicación web.
 
-### 6.1 Arquitectura del despliegue
+### 5.1. Arquitectura del despliegue
 A continuación en la figura, se puede observar la vista de despliegue para la aplicación en AWS.
 
 ![Arquitectura de despliegue](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/Arquitectura_del_despliegue.jpg) <br />
@@ -63,10 +63,10 @@ A continuación en la figura, se puede observar la vista de despliegue para la a
 
 Con un poco mas de detalle, en la instancia EC2 seleccionada para desplegar el front end, vamos a utilizar un servidor web nginx para alojar el front end. En este caso vamos a desplegar todo lo relacionado con el front end el directorio raíz que nos permita alojar el contenido html, css e imágenes. Para esto, en el directorio en el que el código fuente desarrollado, debemos seleccionar la carpeta build que se genero anteriormente. En este máquina instalaremos el servidor web nginx para soportar el front end y utilizarlo como reverse proxy con el fin de podernos comunicar con el back end.
 
-### 6.2 Instancie tres (3) máquinas EC2 en la consola de AWS.
+### 5.2. Instancie tres (3) máquinas EC2 en la consola de AWS.
 Por favor siga los pasos e instrucciones de la guía de laboratorio número dos para realizar este paso.
 
-### 6.3	Asociando una dirección IP pública elástica:
+### 5.3.	Asociando una dirección IP pública elástica:
 Para efectos del despliegue de la aplicación, para cada una de las instancias desplegadas vamos a requerir direcciones IP públicas. Recuerde que una dirección IP pública es aquella que es valida en el contexto de Internet. Para efectos de este laboratorio vamos a solicitar un tipo de dirección IP pública en AWS que se denominan direcciones IP elásticas. Una característica de estas direcciones IP es que son estáticas (por esto se quiere decir que no cambian en el tiempo). Esto es importante para el despliegue de una aplicación, dado que si la máquina se cae y se reinicia, se mantiene asociada la misma dirección IP pública, lo cual no afectará la prestación del servicio. Para asociar una dirección IP elástica, siga los siguientes pasos que se describen a continuación:
 
 En el menú de “Red y Seguridad (Network and Security)”, seleccione la opción de IP elásticas
@@ -85,7 +85,34 @@ Ahora asocie la IP elástica a la máquina que desee (bien sea front end y back 
 
 ![AWS4](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/AWS4.PNG) <br />
 
+### 5.4.	Sesión con la EC2 instanciada via SSH.
+-	En el menú del servicio EC2, seleccione la instancia con la cual desea establecer la conexión. 
+
+![AWS5](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/AWS5.PNG) <br />
+
+-	Cuando seleccione la opción de conectarse, le aparecerá un cuadro parecido. Tenga presente que debe cambiar los permisos de el archivo key (.pem). 
+
+![AWS6](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/AWS6.PNG) <br />
+
+- En una terminal de consola desde su máquina, inicie una sesión ssh contra el servidor que configuro tal como lo indica la sesión de “example” en la sesión anterior. 
+- Como resultado debe haber podido establecer la sesión con la instancia EC2.
+
+![AWS7](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/AWS7.PNG) <br />
+
+### 5.5.  Configuración de base de datos: MongoDB
+
+
 ## 5. Configuración de base de datos: MongoDB
+
+Cree un archivo /etc/yum.repos.d/mongodb-org-5.0.repo para que pueda instalar MongoDB directamente usando yum:
+code block
+[mongodb-org-5.0]
+name=MongoDB Repository
+baseurl=https://repo.mongodb.org/yum/amazon/2/mongodb-org/5.0/x86_64/
+gpgcheck=1
+enabled=1
+gpgkey=https://www.mongodb.org/static/pgp/server-5.0.asc
+
 
 Tutorial [https://docs.mongodb.com/manual/tutorial/install-mongodb-on-amazon/]
 
