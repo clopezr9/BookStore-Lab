@@ -204,7 +204,7 @@ Y para insertar datos a la base de datos se usa el siguiente comando:
 
 La información que debe quedar en su base de datos debe ser esta:
 ![DATA1](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/DATA1.PNG) <br />
-![DATA2](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/DATA2.PNG) <br /
+![DATA2](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/DATA2.PNG) <br />
 
 Tutorial de instalación de MongoDB tomado de: [https://docs.mongodb.com/manual/tutorial/install-mongodb-on-amazon/]
 
@@ -215,5 +215,72 @@ Antes que todo debemos instalar la versión de node. Para esto configuremos el r
  $ curl -sL https://rpm.nodesource.com/setup_14.x | sudo -E bash -
 </code></pre>
 
+Ahora si instalemos la versión de node.js:
+<pre><code> $ sudo yum install -y nodejs
+</code></pre>
 
+Verifiquemos la versión:
+<pre><code> $ node -v
+ $ npm -v 
+</code></pre>
 
+Creemos un pequeño servidor web para verificar funcionalmente que todo este correcto, para esto cree un archivo en el directorio raíz de la aplicación:
+<pre><code> $ sudo nano TestServer.js
+</code></pre>
+
+<pre><code>var http = require('http');
+http.createServer(function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end('Welcome Node.js');
+}).listen(3000, "127.0.0.1");
+console.log('Server running at http://127.0.0.1:3000/');
+</code></pre>
+
+Para ejecutar este código digite el comando: 
+<pre><code> $ node TestServer.js
+</code></pre>
+![app4](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/app4.PNG) <br />
+
+Se procede a realizar la copia de los archivos:
+<pre><code> scp -i XXXX.pem -r /path/backend/ ec2-user@ec2X-X-X-X.compute-1.amazonaws.com:/home/ec2-user
+</code></pre>
+
+Nota: 
+•	XXX.pem es el archivo que usted genero para conectarse a la máquina. 
+•	/path equivale a la ruta donde usted tiene ubicado la carpeta backend del proyecto.
+•	ec2-user@ec2X-X-X-X.compute-1.amazonaws.com
+•	:/home/ec2-user : la ruta donde va a copiar los archivos en el servidor destino.
+
+Ahora entramos al directorio backend y ejecutamos el comando;
+<pre><code> $ npm install
+</code></pre>
+
+Esto permitirá la instalación de los módulos
+
+En este punto debemos permitir el acceso a la bases de datos a nuestro servidor de bases de datos en la nube
+<pre><code> $ node server.js
+</code></pre>
+
+Ahora configuramos el web server (nginx) para que reciba las peticiones dirigidas a la api: /api/books y las redirecciones al backend.
+![flujo2](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/flujo2.PNG) <br />
+
+Para esto agregamos la directiva upstream antes de la de server en el archivo nginx.conf
+<pre><code> $ sudo nano /etc/nginx/nginx.conf
+</code></pre>
+
+<pre><code>upstream backend{
+        server 172.31.50.214:5000;
+    }
+</code></pre>
+
+Luego modificamos la directiva server y, dentro de esta, agregamos lo siguiente:
+<pre><code>location /api/books {
+        proxy_pass http://backend;
+        }
+</code></pre>
+
+Al final, el archivo queda con el siguiente aspecto:
+![app5](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/app5.PNG) <br />
+
+### 5.9.	Verificación de la aplicación:
+En un browser seleccione coloque la dirección IP elástica del front end y debe visualizar la página!
