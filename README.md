@@ -99,34 +99,112 @@ Ahora asocie la IP elástica a la máquina que desee (bien sea front end y back 
 
 ![AWS7](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/AWS7.PNG) <br />
 
-### 5.5.  Configuración de base de datos: MongoDB
+### 5.5. Despliegue de Front-End.
+Para cada una de las instancias que se desplegaron, actualicemos las aplicaciones que tenemos instaladas en la máquina:
+<pre><code>$ sudo yum update </code></pre>
+
+### 5.6. Instalar el servidor web Nginx en el Front End.
+Para efectos de este laboratorio, vamos a utilizar un servidor web como Nginx, con el fin de soporta el despliegue de nuestro front end. Por favor, digite el siguiente comando para proceder a instalar el servidor Nginx.
+<pre><code>$ sudo amazon-linux-extras install nginx1.12 </code></pre>
+
+Una vez esta instalado vamos a proceder a configurar el servidor. Para esto debemos modificar el archivo de configuración de nginx ubicado en /etc/nginx
+<pre><code> $ sudo nano /etc/nginx/nginx.conf </code></pre>
+
+![Nginx](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/Nginx1.PNG) <br />
+
+#### 5.6.1.	Instalando la aplicación.
+Ahora se va a crear el directorio bookstore. Tenga presente que para poder realizar la copia por favor cambie los permisos en el directorio destino:
+<pre><code> $ chmod 777 /usr/share/nginx/html/bookstore </code></pre>
+
+Descargue y descomprima el código de la aplicación en su estación de trabajo (igual lo puede hacer en la máquina server) que se encuentra en EAFIT Interactiva. Va a observar que se crea la siguiente estructura de directorios:
+![app1](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/app1.PNG) <br />
+
+Proceda a  instalar node.js en la máquina de la siguiente forma:
+<pre><code> $ sudo yum install -y gcc-c++ make 
+$ curl -sL https://rpm.nodesource.com/setup_14.x | sudo -E bash -
+</code></pre>
+
+Ahora si instalemos la versión de node.js:
+<pre><code> $ sudo yum install -y nodejs </code></pre>
+
+Verifiquemos la versión:
+<pre><code> $ node -v
+$ npm -v 
+</code></pre>
+
+Ahora se requiere que instale las dependencias, para esto ubicado en el directorio front end ejecute el comando:
+<pre><code> $ npm install 
+</code></pre>
+
+Va a observar que se crea la carpeta node_modules y queda la estructura de la siguiente forma:
+![app2](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/app2.PNG) <br />
+
+Para efectos de este laboratorio, nos interesa generar el código compilado de producción para la aplicación desarrollada. Para esto, realizaremos lo siguiente:
+<pre><code> $ cd frontend
+</code></pre>
+
+Dado que la aplicación esta construida en React, se requiere crear los diferentes archivos para el entorno de producción. Para esto se requiere que ejecute el comando:
+<pre><code> $ npm run build
+</code></pre>
+
+Posterior a la ejecución de este comando se creará la carpeta build, la cual contiene el código html, css, imágenes que se deben publicar en nuestro servidor web. 
+![app2](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/app2.PNG) <br />
+
+Copie la carpeta build desde su máquina (o desde el lugar donde la tiene) hasta el directorio bookstore que se creo en la instancia de EC2. En caso de que este en una máquina remota, procedamos a realizar una copia segura a través del siguiente comando:
+<pre><code> $ scp -i xxx.pem -r /path/build/* ec2-user@ec2-X-X-X-X.compute-1.amazonaws.com:/usr/share/nginx/html/bookstore
+</code></pre>
+
+Nota: 
+•	XXX.pem es el archivo que usted genero para conectarse a la máquina. 
+•	/path equivale a la ruta donde usted tiene ubicado la carpeta backend del proyecto.
+•	ec2-user@ec2X-X-X-X.compute-1.amazonaws.com
+•	:/home/ec2-user : la ruta donde va a copiar los archivos en el servidor destino.
+
+Cambie los permisos al directorio
+<pre><code> $ chmod 777 /usr/share/nginx/html/bookstore/ </code></pre>
+
+Ahora, se procede a verificar el estado del servicio web:
+<pre><code> $ sudo systemctl status nginx.service </code></pre>
+
+Si el servicio esta caído, por favor suba el servicio.
+<pre><code> $ sudo systemctl start nginx.service </code></pre>
+
+![app3](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/app3.PNG) <br />
+<pre><code> $ sudo chkconfig nginx on </code></pre>
 
 
-## 5. Configuración de base de datos: MongoDB
-
+### 5.7.  Configuración de base de datos: MongoDB
 Cree un archivo /etc/yum.repos.d/mongodb-org-5.0.repo para que pueda instalar MongoDB directamente usando yum:
-code block
-[mongodb-org-5.0]
+
+<pre><code>[mongodb-org-5.0]
 name=MongoDB Repository
 baseurl=https://repo.mongodb.org/yum/amazon/2/mongodb-org/5.0/x86_64/
 gpgcheck=1
 enabled=1
 gpgkey=https://www.mongodb.org/static/pgp/server-5.0.asc
+</code></pre>
+
+Para instalar la última versión estable de MongoDB, ejecute el siguiente comando:
+<pre><code>$ sudo yum install -y mongodb-org</code></pre>
+
+Puede iniciar el proceso mongod emitiendo el siguiente comando:
+<pre><code>$ sudo systemctl start mongod</code></pre>
+
+Puede verificar que el proceso de mongod se haya iniciado correctamente emitiendo el siguiente comando:
+<pre><code>$ sudo systemctl status mongod</code></pre>
+
+Inicie una sesión de mongosh en la misma máquina host que mongod. Puede ejecutar mongosh sin ninguna opción de línea de comandos para conectarse a un mongod que se está ejecutando en su localhost con el puerto predeterminado 27017.
+<pre><code>$ mongosh</code></pre>
+
+Ahora debe crear la base de datos con el siguiente comando:
+<pre><code> > use [database_name] </code></pre>
+
+Y para insertar datos a la base de datos se usa el siguiente comando:
+<pre><code> > db.user.insert({name: "...", author: "..."}) </code></pre>
+
+La información que debe quedar en su base de datos debe ser esta:
+![DATA1](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/DATA1.PNG) <br />
+![DATA2](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/DATA2.PNG) <br />
 
 
-Tutorial [https://docs.mongodb.com/manual/tutorial/install-mongodb-on-amazon/]
-
-Code block
-$ sudo nano /etc/yum.repos.d/mongodb-org-5.0.repo
-[mongodb-org-5.0]
-name=MongoDB Repository
-baseurl=https://repo.mongodb.org/yum/amazon/2/mongodb-org/5.0/x86_64/
-gpgcheck=1
-enabled=1
-gpgkey=https://www.mongodb.org/static/pgp/server-5.0.asc
-
-$ sudo systemctl start mongod
-$ sudo systemctl status mongod
-$ mongosh
-$ use bookstore
-$ db.user.insert({name: "...", author: "..."})
+Tutorial de instalación de MongoDB tomado de: [https://docs.mongodb.com/manual/tutorial/install-mongodb-on-amazon/]
