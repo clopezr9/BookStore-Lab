@@ -197,16 +197,49 @@ Inicie una sesión de mongosh en la misma máquina host que mongod. Puede ejecut
 <pre><code> $ mongosh</code></pre>
 
 Ahora debe crear la base de datos con el siguiente comando:
-<pre><code> > use [database_name] </code></pre>
+<pre><code> > use bookstore </code></pre>
+
+Y para crear la colección el siguiente:
+<pre><code> > db.createCollection(books) </code></pre>
 
 Y para insertar datos a la base de datos se usa el siguiente comando:
-<pre><code> > db.user.insert({name: "...", author: "..."}) </code></pre>
+<pre><code> > db.books.insert({name: "...", author: "..."}) </code></pre>
 
 La información que debe quedar en su base de datos debe ser esta:
 ![DATA1](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/DATA1.PNG) <br />
 ![DATA2](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/DATA2.PNG) <br />
 
-Tutorial de instalación de MongoDB tomado de: [https://docs.mongodb.com/manual/tutorial/install-mongodb-on-amazon/]
+Ahora vamos a configurar credenciales de nuestra base de datos para eso se sugieren los siguentes comandos:
+<pre><code>
+> use admin
+</code></pre>
+
+Luego se agrega el usuario que permitira crear otros usurios:
+<pre><code>
+> db.createUser(
+  {
+    user: "[user_name]",
+    pwd: "[Password]",
+    roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
+  }
+)
+</code></pre>
+
+Abra /etc/mongod.conf con su editor de código favorito y busque las siguientes líneas:
+<pre><code>
+security:
+    authorization: "disabled"
+</code></pre>
+
+Cambie "disabled" por "enabled", guarde el archivo y reinicie mongod:
+<pre><code>
+ $ sudo service mongodb restart
+</code></pre>
+
+Ahora cree un usuario para la base de datos previamente creada de la mism aforma.
+
+Por ultimo en el archivo .ENV ubicado en la carpeta del back end, agregue el siguente string de conexión a la base de datos.
+mongodb+srv://<user>:<password>@<servers_elacstic_ip>:27017/myFirstDatabase?retryWrites=true&w=majority
 
 
 ### 5.8.	Desplegando el back end.
