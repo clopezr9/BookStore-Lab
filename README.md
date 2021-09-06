@@ -40,7 +40,7 @@ A continuación se ofrece una descripción de la aplicación para cada una de la
 
 En el siguiente diagrama se puede observar el flujo principal que se requieren implementar para el manejo de las peticiones http. 
 
-![Figura 5](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/Diagrama_de_flujo.PNG) <br />
+![Figura 5](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/Diagrama_de_flujo2.PNG) <br />
 *Figura 5. Diagrama de flujo*<br />
 
 El módulo “server.js” inicializa el proceso servidor en el puerto 5000, establece la conexión con la base de datos y, una vez recibe las peticiones http, selecciona y usa el módulo de ruta (bookRoute.js) adecuado para el procesamiento de la petición http entrante. Aquí, se envía la información al controlador apropiado (“bookControler”) para que este obtenga los datos que se solicitan desde el front end a través del model (“bookModels.js”). En este caso lo que se envía de respuesta es un Java Script Object Notation (JSON) hacia el front end. El modelo se encarga de obtener los datos solicitados de la base de datos.
@@ -65,6 +65,9 @@ Con un poco mas de detalle, en la instancia EC2 seleccionada para desplegar el f
 
 ### 5.2. Instancie tres (3) máquinas EC2 en la consola de AWS.
 Por favor siga los pasos e instrucciones de la guía de laboratorio número dos para realizar este paso.
+
+Para la instancia de persistencia debe tener en cuenta que el grupo de seguridad se debe ver así:
+![SG_DB](https://github.com/clopezr9/BookStore-Lab/blob/main/ImagenesBookStore/SG_DB.PNG) <br />
 
 ### 5.3.	Asociando una dirección IP pública elástica:
 Para efectos del despliegue de la aplicación, para cada una de las instancias desplegadas vamos a requerir direcciones IP públicas. Recuerde que una dirección IP pública es aquella que es valida en el contexto de Internet. Para efectos de este laboratorio vamos a solicitar un tipo de dirección IP pública en AWS que se denominan direcciones IP elásticas. Una característica de estas direcciones IP es que son estáticas (por esto se quiere decir que no cambian en el tiempo). Esto es importante para el despliegue de una aplicación, dado que si la máquina se cae y se reinicia, se mantiene asociada la misma dirección IP pública, lo cual no afectará la prestación del servicio. Para asociar una dirección IP elástica, siga los siguientes pasos que se describen a continuación:
